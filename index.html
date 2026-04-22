@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List – Espace Personnel</title>
+  <link rel="stylesheet" href="page.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ========== PAGE AUTHENTIFICATION ========== -->
+  <div id="auth-page" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">✦</div>
+        <h1>TodoSpace</h1>
+        <p>Votre espace de tâches personnel</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Connexion</button>
+        <button class="tab-btn" id="tab-register" onclick="switchTab('register')">Inscription</button>
+      </div>
+
+      <!-- Formulaire Connexion -->
+      <div id="form-login" class="auth-form">
+        <div class="field-group">
+          <label for="login-email">Adresse email</label>
+          <input type="email" id="login-email" placeholder="votre@email.com" />
+        </div>
+        <div class="field-group">
+          <label for="login-password">Mot de passe</label>
+          <input type="password" id="login-password" placeholder="••••••••" />
+        </div>
+        <p class="auth-error" id="login-error"></p>
+        <button class="btn-primary" onclick="handleLogin()">Se connecter</button>
+      </div>
+
+      <!-- Formulaire Inscription -->
+      <div id="form-register" class="auth-form hidden">
+        <div class="field-group">
+          <label for="reg-name">Nom complet</label>
+          <input type="text" id="reg-name" placeholder="Ali Benali" />
+        </div>
+        <div class="field-group">
+          <label for="reg-email">Adresse email</label>
+          <input type="email" id="reg-email" placeholder="votre@email.com" />
+        </div>
+        <div class="field-group">
+          <label for="reg-password">Mot de passe</label>
+          <input type="password" id="reg-password" placeholder="Minimum 6 caractères" />
+        </div>
+        <p class="auth-error" id="reg-error"></p>
+        <p class="auth-success" id="reg-success"></p>
+        <button class="btn-primary" onclick="handleRegister()">S'inscrire</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE TODO LIST ========== -->
+  <div id="app-page" class="app-wrapper hidden">
+
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-left">
+        <span class="logo-mark">✦</span>
+        <span class="app-title">TodoSpace</span>
+      </div>
+      <div class="navbar-right">
+        <span id="welcome-msg" class="welcome-msg"></span>
+        <button class="btn-dark-toggle" id="dark-toggle" onclick="toggleDarkMode()" title="Mode sombre">🌙</button>
+        <button class="btn-logout" onclick="handleLogout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+
+      <!-- Historique (Bonus 2) -->
+      <div class="history-bar" id="history-bar">
+        <span id="hist-added"></span>
+        <span id="hist-deleted"></span>
+      </div>
+
+      <!-- Formulaire ajout de tâche -->
+      <section class="task-form-section">
+        <h2 class="section-title">Nouvelle tâche</h2>
+        <div class="task-form">
+          <div class="form-row">
+            <div class="field-group">
+              <label for="task-title">Titre</label>
+              <input type="text" id="task-title" placeholder="Titre de la tâche" />
+            </div>
+            <div class="field-group">
+              <label for="task-date">Date</label>
+              <input type="date" id="task-date" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="task-desc">Description</label>
+            <textarea id="task-desc" placeholder="Décrivez votre tâche..." rows="2"></textarea>
+          </div>
+          <p class="auth-error" id="task-error"></p>
+          <button class="btn-primary" onclick="handleAddTask()">+ Ajouter la tâche</button>
+        </div>
+      </section>
+
+      <!-- Recherche & Filtres (Bonus 3) -->
+      <section class="filter-section">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Rechercher par titre ou mot-clé..." oninput="renderTasks()" />
+        </div>
+        <div class="filter-btns">
+          <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">Toutes</button>
+          <button class="filter-btn" data-filter="todo" onclick="setFilter('todo', this)">À faire</button>
+          <button class="filter-btn" data-filter="done" onclick="setFilter('done', this)">Terminées</button>
+        </div>
+      </section>
+
+      <!-- Liste des tâches -->
+      <section class="tasks-section">
+        <h2 class="section-title">Mes tâches <span id="task-count" class="task-count"></span></h2>
+        <div id="task-list" class="task-list"></div>
+        <p id="empty-msg" class="empty-msg hidden">Aucune tâche trouvée.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal édition -->
+  <div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Modifier la tâche</h3>
+      <div class="field-group">
+        <label>Titre</label>
+        <input type="text" id="edit-title" />
+      </div>
+      <div class="field-group">
+        <label>Description</label>
+        <textarea id="edit-desc" rows="3"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Date</label>
+        <input type="date" id="edit-date" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+        <button class="btn-primary" onclick="saveEdit()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="page.js"></script>
+</body>
+</html>
