@@ -10,7 +10,6 @@
   --accent:   #111110;
   --accent-fg:#f5f4f0;
   --danger:   #b83030;
-  --ok:       #2a7a2a;
   --radius:   4px;
   --mono:     'IBM Plex Mono', monospace;
   --sans:     'IBM Plex Sans', sans-serif;
@@ -41,10 +40,21 @@ body {
 .hidden { display: none !important; }
 
 /* =============================================
+   TOPBAR MINIMAL (page login)
+   ============================================= */
+.topbar-minimal {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.9rem 1.5rem;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+}
+
+/* =============================================
    LOGIN
    ============================================= */
 .login-wrapper {
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +167,7 @@ input:focus { border-color: var(--text); }
 .msg-error { color: var(--danger); font-size: 12px; min-height: 1em; }
 
 /* =============================================
-   TOPBAR
+   TOPBAR APP
    ============================================= */
 .topbar {
   border-bottom: 1px solid var(--border);
@@ -172,7 +182,7 @@ input:focus { border-color: var(--text); }
   z-index: 50;
 }
 
-.topbar-left { display: flex; align-items: center; gap: 1rem; }
+.topbar-left  { display: flex; align-items: center; gap: 1rem; }
 .topbar-right { display: flex; align-items: center; gap: 0.6rem; }
 
 .welcome-msg {
@@ -226,7 +236,7 @@ input:focus { border-color: var(--text); }
 }
 
 /* =============================================
-   FORMULAIRE AJOUT
+   AJOUT
    ============================================= */
 .add-form {
   display: flex;
@@ -234,15 +244,50 @@ input:focus { border-color: var(--text); }
 }
 
 .add-form input { flex: 1; }
+.add-btn { width: auto; white-space: nowrap; padding: 0.65rem 1.1rem; }
 
-.add-btn {
-  width: auto;
-  white-space: nowrap;
-  padding: 0.65rem 1.1rem;
+/* =============================================
+   FILTRES & RECHERCHE
+   ============================================= */
+.panel-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1rem 1.4rem;
+}
+
+.search-input { width: 100%; }
+
+.filter-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.filter-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.35rem 0.85rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+
+.filter-btn:not(.active):hover {
+  border-color: var(--text);
+  color: var(--text);
 }
 
 /* =============================================
-   LISTE DES TACHES
+   LISTE
    ============================================= */
 .task-list {
   list-style: none;
@@ -260,13 +305,11 @@ input:focus { border-color: var(--text); }
   text-align: center;
 }
 
-/* Animation entrée */
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Animation sortie */
 @keyframes slideOut {
   from { opacity: 1; transform: translateX(0); max-height: 80px; }
   to   { opacity: 0; transform: translateX(16px); max-height: 0; padding: 0; margin: 0; }
@@ -294,7 +337,6 @@ input:focus { border-color: var(--text); }
   pointer-events: none;
 }
 
-/* Checkbox */
 .task-check {
   width: 16px;
   height: 16px;
@@ -327,10 +369,9 @@ input:focus { border-color: var(--text); }
 .task-text {
   flex: 1;
   font-size: 14px;
-  font-weight: 400;
   color: var(--text);
-  transition: color 0.15s;
   word-break: break-word;
+  transition: color 0.15s;
 }
 
 .task-item.done .task-text {
@@ -367,4 +408,5 @@ input:focus { border-color: var(--text); }
   .app-main { padding: 1.2rem 1rem 3rem; }
   .add-form { flex-direction: column; }
   .add-btn { width: 100%; }
+  .welcome-msg { font-size: 11px; }
 }

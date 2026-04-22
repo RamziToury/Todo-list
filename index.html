@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo List</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
 </head>
+
 <body>
 
   <!-- ========== PAGE LOGIN ========== -->
-  <div id="login-page" class="login-wrapper">
-    <div class="login-card">
-      <h1 class="login-title">Todo List</h1>
-      <p class="login-sub">Entrez votre nom pour accéder à votre espace</p>
-      <div class="field-group">
-        <label for="input-name">Nom</label>
-        <input type="text" id="input-name" placeholder="Votre nom..." autocomplete="off"/>
+  <div id="login-page">
+
+    <div class="topbar-minimal">
+      <button class="btn-flat" id="dark-toggle-login" onclick="toggleDark()">Mode sombre</button>
+    </div>
+
+    <div class="login-wrapper">
+      <div class="login-card">
+        <h1 class="login-title">Todo List</h1>
+        <p class="login-sub">Connectez-vous ou inscrivez-vous</p>
+
+        <div class="field-group">
+          <label for="input-name">Nom</label>
+          <input type="text" id="input-name" placeholder="Votre nom..." autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label for="input-password">Mot de passe</label>
+          <input type="password" id="input-password" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+
+        <p class="msg-error" id="login-error"></p>
+
+        <div style="display: flex; gap: 0.7rem; flex-direction: column;">
+          <button class="btn-submit" onclick="handleLogin()">Se connecter</button>
+          <button class="btn-submit" onclick="handleRegister()" style="background: var(--text-sub);">S'inscrire</button>
+        </div>
       </div>
-      <p class="msg-error" id="login-error"></p>
-      <button class="btn-submit" onclick="handleLogin()">Se connecter</button>
     </div>
   </div>
 
@@ -32,7 +53,7 @@
         <span class="counter" id="counter"></span>
       </div>
       <div class="topbar-right">
-        <button class="btn-flat" id="dark-toggle" onclick="toggleDark()">Mode sombre</button>
+        <button class="btn-flat" id="dark-toggle-app" onclick="toggleDark()">Mode sombre</button>
         <button class="btn-flat danger" onclick="handleLogout()">Deconnexion</button>
       </div>
     </header>
@@ -49,11 +70,22 @@
         <p class="msg-error" id="task-error"></p>
       </section>
 
+      <!-- Recherche & filtres -->
+      <section class="panel panel-filters">
+        <input type="text" id="search-input" class="search-input" placeholder="Rechercher par titre ou mot-cle..."
+          oninput="renderTasks()" />
+        <div class="filter-btns">
+          <button class="filter-btn active" onclick="setFilter('all', this)">Toutes</button>
+          <button class="filter-btn" onclick="setFilter('todo', this)">A faire</button>
+          <button class="filter-btn" onclick="setFilter('done', this)">Terminees</button>
+        </div>
+      </section>
+
       <!-- Liste -->
       <section class="panel">
         <h2 class="panel-title">Mes tâches</h2>
         <ul id="task-list" class="task-list"></ul>
-        <p id="empty-msg" class="empty-msg hidden">Aucune tâche pour le moment.</p>
+        <p id="empty-msg" class="empty-msg hidden">Aucune tâche.</p>
       </section>
 
     </main>
@@ -61,4 +93,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
