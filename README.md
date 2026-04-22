@@ -1,79 +1,71 @@
 # Todo List
 
-Application web de gestion de tâches personnelles avec authentification, développée en HTML/CSS/JS vanilla dans le cadre du module **Programmation Web 1** (Filière IIIA — S4).
+Application web de gestion de tâches personnelles en JavaScript Vanilla.  
+Projet réalisé dans le cadre du cours **Programmation Web 2** — HESTiM, 2A-IIIA, 2025/2026.
 
 ---
 
 ## Fonctionnalités
 
-**Authentification**
-- Inscription avec nom, email et mot de passe (validation côté client)
-- Connexion avec vérification des identifiants
-- Session persistante via LocalStorage
-- Déconnexion
+**Login**
+- L'utilisateur saisit son nom et clique sur "Se connecter"
+- S'il existe déjà : connexion directe
+- Sinon : création automatique du compte
 
-**Gestion des tâches**
-- Ajout d'une tâche (titre, description, date)
-- Modification d'une tâche existante
-- Suppression
-- Changement de statut (à faire / terminée)
-- Les tâches sont liées à l'utilisateur connecté — chaque compte voit uniquement les siennes
-- Sauvegarde automatique dans le LocalStorage après chaque action
+**Tâches (CRUD)**
+- Ajouter une tâche
+- Afficher la liste des tâches
+- Marquer une tâche comme terminée
+- Supprimer une tâche
 
-**Filtres et recherche**
-- Filtrage par statut : toutes / à faire / terminées
-- Recherche en temps réel par titre, mot-clé ou statut
+**Session**
+- L'utilisateur reste connecté après rechargement de la page
+- Bouton de déconnexion disponible
 
-**Bonus**
-- Mode sombre / clair, préférence sauvegardée
-- Historique : dernière tâche ajoutée et dernière tâche supprimée
+**Interface**
+- Compteur de tâches (terminées / total)
+- Mode sombre, préférence sauvegardée
+- Animations à l'ajout et à la suppression des tâches
+
 ---
 
-## Structure du projet
+## Structure
 
 ```
-Todolist/
-├── index.html   # Structure de la page (auth + app)
-├── page.css     # Styles
-└── page.js      # Logique JavaScript
+todo-final-app/
+├── index.html
+├── style.css
+├── script.js
+└── README.md
 ```
 
 ---
 
 ## Lancer le projet
 
-Aucune dépendance, aucun build requis. Il suffit d'ouvrir `index.html` dans un navigateur.
+Aucune dépendance, aucun build. Ouvrir `index.html` dans un navigateur.
 
 ```bash
-git clone https://github.com/<votre-username>/<votre-repo>.git
-cd <votre-repo>
-# Ouvrir index.html dans le navigateur
+git clone https://github.com/<username>/<repo>.git
+cd <repo>
+# Ouvrir index.html
 ```
 
 ---
 
-## LocalStorage — structure des données
+## LocalStorage
 
 | Clé | Contenu |
 |---|---|
-| `todoapp_users` | Tableau des comptes enregistrés |
-| `todoapp_tasks` | Tableau de toutes les tâches |
-| `todoapp_session` | Utilisateur actuellement connecté |
-| `todoapp_darkmode` | Préférence du thème (`true` / `false`) |
-| `todoapp_history` | Dernière tâche ajoutée / supprimée |
+| `todo_users` | Liste des utilisateurs enregistrés |
+| `todo_tasks` | Toutes les tâches |
+| `todo_session` | Utilisateur actuellement connecté |
+| `todo_dark` | Préférence du thème |
 
 ---
 
 ## Technologies
 
 - HTML5
-- CSS3 (variables CSS, transitions, responsive)
+- CSS3 (variables, transitions, animations)
 - JavaScript ES6 (DOM, événements, LocalStorage)
-- Police : IBM Plex Sans / IBM Plex Mono (Google Fonts)
-
----
-
-## Auteur
-
-Réalisé dans le cadre du TP4 — *Todo List avancée avec authentification et Local Storage*  
-HESTiM — Niveau 2A, Semestre S4

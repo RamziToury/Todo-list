@@ -1,0 +1,370 @@
+/* =============================================
+   VARIABLES
+   ============================================= */
+:root {
+  --bg:       #f5f4f0;
+  --bg-panel: #ffffff;
+  --text:     #111110;
+  --text-sub: #666660;
+  --border:   #d8d6d0;
+  --accent:   #111110;
+  --accent-fg:#f5f4f0;
+  --danger:   #b83030;
+  --ok:       #2a7a2a;
+  --radius:   4px;
+  --mono:     'IBM Plex Mono', monospace;
+  --sans:     'IBM Plex Sans', sans-serif;
+}
+
+body.dark {
+  --bg:       #111110;
+  --bg-panel: #1a1a18;
+  --text:     #e8e6e0;
+  --text-sub: #888880;
+  --border:   #2e2e2a;
+  --accent:   #e8e6e0;
+  --accent-fg:#111110;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hidden { display: none !important; }
+
+/* =============================================
+   LOGIN
+   ============================================= */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  animation: fadeUp 0.3s ease both;
+}
+
+.login-title {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.login-sub {
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-top: -0.4rem;
+}
+
+/* =============================================
+   CHAMPS
+   ============================================= */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+}
+
+input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+input:focus { border-color: var(--text); }
+
+/* =============================================
+   BOUTONS
+   ============================================= */
+.btn-submit {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.65rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.15s;
+}
+
+.btn-submit:hover { opacity: 0.8; }
+
+.btn-flat {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.42rem 0.85rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-flat:hover { border-color: var(--text); color: var(--text); }
+.btn-flat.danger { color: var(--danger); border-color: var(--danger); }
+.btn-flat.danger:hover { background: var(--danger); color: #fff; }
+
+/* =============================================
+   MESSAGES
+   ============================================= */
+.msg-error { color: var(--danger); font-size: 12px; min-height: 1em; }
+
+/* =============================================
+   TOPBAR
+   ============================================= */
+.topbar {
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-panel);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-left { display: flex; align-items: center; gap: 1rem; }
+.topbar-right { display: flex; align-items: center; gap: 0.6rem; }
+
+.welcome-msg {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.counter {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-sub);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.15rem 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+/* =============================================
+   MAIN
+   ============================================= */
+.app-main {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 1.8rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* =============================================
+   PANELS
+   ============================================= */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.4rem;
+}
+
+.panel-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  margin-bottom: 1rem;
+}
+
+/* =============================================
+   FORMULAIRE AJOUT
+   ============================================= */
+.add-form {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.add-form input { flex: 1; }
+
+.add-btn {
+  width: auto;
+  white-space: nowrap;
+  padding: 0.65rem 1.1rem;
+}
+
+/* =============================================
+   LISTE DES TACHES
+   ============================================= */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.empty-msg {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-sub);
+  padding: 1.2rem 0 0.3rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* Animation entrée */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Animation sortie */
+@keyframes slideOut {
+  from { opacity: 1; transform: translateX(0); max-height: 80px; }
+  to   { opacity: 0; transform: translateX(16px); max-height: 0; padding: 0; margin: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+  animation: slideIn 0.22s ease both;
+  overflow: hidden;
+}
+
+.task-item:last-child { border-bottom: none; }
+
+.task-item.removing {
+  animation: slideOut 0.25s ease forwards;
+  pointer-events: none;
+}
+
+/* Checkbox */
+.task-check {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  transition: all 0.15s;
+}
+
+.task-check.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task-check.checked::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 5px;
+  border-left: 1.5px solid var(--accent-fg);
+  border-bottom: 1.5px solid var(--accent-fg);
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.task-text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+  transition: color 0.15s;
+  word-break: break-word;
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--text-sub);
+}
+
+.task-delete {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 0.28rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.task-delete:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 480px) {
+  .topbar { padding: 0 1rem; }
+  .app-main { padding: 1.2rem 1rem 3rem; }
+  .add-form { flex-direction: column; }
+  .add-btn { width: 100%; }
+}
